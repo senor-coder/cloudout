@@ -1,0 +1,14 @@
+Buckets:
+  BucketName: cf:teststack:BucketName
+  BucketDomainName: cf:teststack:BucketDomainName
+
+Workgroups:
+  importFilters: cf:teststack:fooWorkgroup
+  metrics: cf:teststack:barWorkgroup
+
+SQS:
+  scheduler: cf:teststack:metricsScheduler
+
+DB:
+  foo: ssm:/path/to/my/param
+  plain: something_plain

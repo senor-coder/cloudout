@@ -1,0 +1,8 @@
+{{#each sections}}
+class {{@key}}(str):
+{{#this}}
+  {{referenceName}} = '{{value}}'
+{{/this}}
+
+
+{{/each}}
