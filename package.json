@@ -1,7 +1,7 @@
 {
   "name": "cloudout",
   "version": "0.0.1",
-  "description": "Code generator for your cloudformation output.",
+  "description": "Code generator for your AWS cloud resources.",
   "main": "lib/cloudout.js",
   "type": "module",
   "preferGlobal": true,
