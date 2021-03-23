@@ -5,9 +5,9 @@ import { CloudoutParser } from "../lib/parser.js";
 
 const testResource = {
   Foo: {
-    BucketName: "cf:some-stack:x",
-    BucketDomainName: "cf:some-other-stack:y",
-    Bar: "cf:some-stack:z",
+    BucketName: "$cf:some-stack:x",
+    BucketDomainName: "$cf:some-other-stack:y",
+    Bar: "$cf:some-stack:z",
   },
 };
 
@@ -20,21 +20,21 @@ describe("Test Cloudout Parser", () => {
       {
         stackName: 'some-stack',
         outputKey: 'x',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'BucketName',
         sectionName: 'Foo'
       },
       {
         stackName: 'some-other-stack',
         outputKey: 'y',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'BucketDomainName',
         sectionName: 'Foo'
       },
       {
         stackName: 'some-stack',
         outputKey: 'z',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'Bar',
         sectionName: 'Foo'
       }
@@ -53,35 +53,35 @@ describe("Test getResources From File", () => {
       {
         stackName: 'teststack',
         outputKey: 'BucketName',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'BucketName',
         sectionName: 'Buckets'
       },
       {
         stackName: 'teststack',
         outputKey: 'BucketDomainName',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'BucketDomainName',
         sectionName: 'Buckets'
       },
       {
         stackName: 'teststack',
         outputKey: 'fooWorkgroup',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'importFilters',
         sectionName: 'Workgroups'
       },
       {
         stackName: 'teststack',
         outputKey: 'barWorkgroup',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'metrics',
         sectionName: 'Workgroups'
       },
       {
         stackName: 'teststack',
         outputKey: 'metricsScheduler',
-        serviceName: 'cf',
+        serviceName: '$cf',
         referenceName: 'scheduler',
         sectionName: 'SQS'
       }
@@ -93,16 +93,16 @@ describe("Test getResources From File", () => {
 describe("Test Cloudout parsing for SSM", () => {
   it("test parseSectionRes for SSM", () => {
     const actualValue = CloudoutParser._parseSectionRes({
-      serviceName: "ssm",
+      serviceName: "$ssm",
       referenceName: "fooResource",
-      value: "ssm:bar/something",
+      value: "$ssm:bar/something",
       section: "foo",
     });
 
     const expectedValue = {
       parameterName: 'bar/something',
       decrypt: false,
-      serviceName: 'ssm',
+      serviceName: '$ssm',
       referenceName: 'fooResource',
       sectionName: undefined
     };
@@ -113,14 +113,14 @@ describe("Test Cloudout parsing for SSM", () => {
     const actualValue = CloudoutParser._parseSectionRes({
       serviceName: "ssm",
       referenceName: "fooResource",
-      value: "ssm:bar/something:true",
+      value: "$ssm:bar/something:true",
       section: "foo",
     });
 
     const expectedValue = {
       parameterName: 'bar/something',
       decrypt: true,
-      serviceName: 'ssm',
+      serviceName: '$ssm',
       referenceName: 'fooResource',
       sectionName: undefined
     };

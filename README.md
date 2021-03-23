@@ -22,15 +22,15 @@ Lets create a template file cloudout.yml
 
 ```yaml
 S3Buckets:
-  website: cf:my_org_website:bucket_name
-  #cf - This is for cloudformation
+  website: $cf:my_org_website:bucket_name
+  #$cf - This is for cloudformation
   #my_org_website - This the cloudformation stack name
   #bucket_name - This is the output key in the stack
 
 
 Domains:
-  domain_name: ssm:/prod/website/domain_name
-  #ssm - This is for SSM ParameterStore
+  domain_name: $ssm:/prod/website/domain_name
+  #$ssm - This is for SSM ParameterStore
   #/prod/website/domain_name - This is the parameter name
 
 ```
