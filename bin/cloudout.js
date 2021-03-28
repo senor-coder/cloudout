@@ -11,6 +11,12 @@ const parser = new ArgumentParser({
   description: pkg.description,
 });
 
+parser.add_argument("cmd", {
+  type: "string",
+  help: "command to execute.",
+  choices: ["gen", "diff"],
+});
+
 parser.add_argument("-v", "--version", {
   action: "version",
   version: pkg.version,
@@ -22,7 +28,7 @@ parser.add_argument("-r", "--region", {
 });
 
 parser.add_argument("-t", "--type", {
-  help: "Output type of the file. Possible values python, yaml",
+  help: "Output type of the file",
   choices: ["python", "yaml"],
   required: true,
 });
@@ -47,14 +53,20 @@ const args = parser.parse_args();
 let inputParams = {};
 if (args.params != null) {
   for (const param of args.params) {
-    if (param.includes('=')) {
+    if (param.includes("=")) {
       const [key, value] = param.split("=", 2);
       inputParams[key] = value;
     } else {
-      throw new SyntaxError("Please pass params as key value pairs.");
+      throw new SyntaxError("Please pass params as key=value");
     }
   }
 }
 
 const client = new CloudoutClient(args.region);
-client.generateOutput(args.input, args.type, inputParams, args.output)
+
+COMMAND_EXEC = {
+  gen: (args) => client.generateOutput(args.input, args.type, inputParams, args.output),
+  diff: (args) => client.diff(args.input, args.type, inputParams, args.output),
+};
+
+COMMAND_EXEC[args.cmd](args);
