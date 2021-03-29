@@ -14,13 +14,18 @@ const parser = new ArgumentParser({
 parser.add_argument("cmd", {
   type: "string",
   help: "command to execute.",
-  choices: ["gen", "diff"],
+  choices: ["gen", "diff", "verify"],
 });
 
 parser.add_argument("-v", "--version", {
   action: "version",
   version: pkg.version,
 });
+
+parser.add_argument("-s", "--strict"),{
+  action:"store_true",
+  help: "Fail incase of invalid reference values in the input file."
+}
 
 parser.add_argument("-r", "--region", {
   help: "Region in which the cloudformation stacks are present",
@@ -62,11 +67,26 @@ if (args.params != null) {
   }
 }
 
-const client = new CloudoutClient(args.region);
+if (args.cmd in ["diff", "verify"] && args.output == null) {
+  console.log("Please specify the (-o) output file to compare against.");
+  process.exit(1);
+}
 
-COMMAND_EXEC = {
+const client = CloudoutClient.getDefaultClient(args.region, args.strict);
+
+const COMMAND_EXEC = {
   gen: (args) => client.generateOutput(args.input, args.type, inputParams, args.output),
-  diff: (args) => client.diff(args.input, args.type, inputParams, args.output),
+  diff: (args) => client.printDiff(args.input, args.type, inputParams, args.output),
+  verify: async (args) => {
+    const hasChanges = await client.verify(args.input, args.type, inputParams, args.output);
+    if(hasChanges){
+      console.log("Changes detected. Please run cloudout diff to view the changes.")
+      process.exit(1);
+    }else{
+      console.log("No changes detected");
+      process.exit(0);
+    }
+  }
 };
 
 COMMAND_EXEC[args.cmd](args);

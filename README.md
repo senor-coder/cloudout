@@ -40,7 +40,7 @@ Domains:
 
 To generate the python file
 ```bash
-cloudout -r us-east-1 -t python -i cloudout.yml -o resources.py
+cloudout gen -r us-east-1 -t python -i cloudout.yml -o resources.py
 ```
 
 Output:
