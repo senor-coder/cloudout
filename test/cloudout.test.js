@@ -32,7 +32,7 @@ describe("Test CloudoutClient", () => {
     InvalidParameters: [],
   }));
 
-  const cloudoutClient = CloudoutClient.getDefaultClient("us-east-1", true);
+  const cloudoutClient = CloudoutClient.getDefaultClient("us-east-1", false);
 
 
   it("Generate output", async () => {
