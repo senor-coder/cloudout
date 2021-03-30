@@ -75,7 +75,7 @@ if (args.cmd in ["diff", "verify"] && args.output == null) {
 const client = CloudoutClient.getDefaultClient(args.region, args.strict);
 
 const COMMAND_EXEC = {
-  gen: (args) => client.generateOutput(args.input, args.type, inputParams, args.output),
+  gen: (args) => client.generateOutputToFile(args.input, args.type, inputParams, args.output),
   diff: (args) => client.printDiff(args.input, args.type, inputParams, args.output),
   verify: async (args) => {
     const hasChanges = await client.verify(args.input, args.type, inputParams, args.output);
