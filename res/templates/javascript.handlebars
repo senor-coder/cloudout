@@ -1,0 +1,8 @@
+{{#each sections}}
+export const {{@key}} = {
+    {{#this}}
+    "{{referenceName}}":"{{value}}",
+    {{/this}}
+};
+
+{{/each}}

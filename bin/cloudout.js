@@ -34,7 +34,7 @@ parser.add_argument("-r", "--region", {
 
 parser.add_argument("-t", "--type", {
   help: "Output type of the file",
-  choices: ["python", "yaml"],
+  choices: ["python", "yaml", "properties", "javascript"],
   required: true,
 });
 

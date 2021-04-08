@@ -1,6 +1,6 @@
 {
   "name": "cloudout",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Code generator for your AWS cloud resources.",
   "main": "lib/cloudout.js",
   "type": "module",
