@@ -1,6 +1,6 @@
 {
   "name": "cloudout",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Code generator for your AWS cloud resources.",
   "main": "lib/cloudout.js",
   "type": "module",
@@ -23,8 +23,8 @@
   "author": "Ashwin Surana",
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-cloudformation": "^3.9.0",
-    "@aws-sdk/client-ssm": "^3.9.0",
+    "@aws-sdk/client-cloudformation": "^3.29.0",
+    "@aws-sdk/client-ssm": "^3.29.0",
     "argparse": "^2.0.1",
     "chalk": "^4.1.0",
     "diff": "^5.0.0",

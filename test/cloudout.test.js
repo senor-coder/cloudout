@@ -1,6 +1,10 @@
 import { CloudoutClient } from "../lib/cloudout.js";
-import { CloudFormationClient } from "@aws-sdk/client-cloudformation";
-import { SSMClient } from "@aws-sdk/client-ssm";
+import pkg from "@aws-sdk/client-cloudformation";
+const { CloudFormationClient } = pkg;
+
+import ssmPkg from "@aws-sdk/client-ssm";
+const { SSMClient } = ssmPkg;
+
 import sinon from "sinon";
 import path from "path";
 import { expect } from "chai";
